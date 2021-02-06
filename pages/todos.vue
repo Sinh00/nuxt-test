@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" placeholder="タスクを追加" @keyup.enter="addTodo" />
+    <input type="text" @keyup.enter="addTodo" v-bind:value="inputData" />
     <ul>
       <li v-for="(todo, index) in todos" :key="index">
         <input type="checkbox" :checked="todo.done" @change="toggle(todo)" />
@@ -15,6 +15,11 @@ import Vue from 'vue'
 import { mapMutations } from 'vuex'
 
 export default Vue.extend({
+  data: () => {
+    return {
+      inputData: '初期値',
+    }
+  },
   computed: {
     todos() {
       return this.$store.state.todos.list
@@ -24,6 +29,7 @@ export default Vue.extend({
   methods: {
     addTodo(event: Event) {
       this.$store.commit('todos/add', (event.target as HTMLInputElement).value)
+      this.inputData = ''
     },
     ...mapMutations({
       toggle: 'todos/toggle',

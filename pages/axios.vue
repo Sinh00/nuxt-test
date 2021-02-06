@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <button @click="getIp">IPアドレスを取得</button>
     <p>{{ ip }}</p>
   </div>
@@ -16,15 +16,14 @@ export default Vue.extend({
   },
   methods: {
     async getIp() {
-      const ip = await this.$axios.$get('http://icanhazip.com')
-      this.ip = ip
+      this.ip = await this.$axios.$get('http://icanhazip.com')
     },
   },
 })
 </script>
 
 <style>
-#app {
+div {
   text-align: center;
 }
 </style>
